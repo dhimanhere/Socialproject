@@ -1,29 +1,55 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+	{% load fb_tags %}
+	<script type="text/javascript">
+	    FACEBOOK_APP_ID = '{% fb_app_id %}';
+	    FACEBOOK_REDIRECT_URL = '{% fb_redirect_url %}';
+	    FACEBOOK_CHANNEL_URL = '{% url channel %}';
+	</script>
+	<script type="text/javascript" src="{{ STATIC_URL }}facebook/fb_utils.js"></script>
+	{% block head %}
+	{% endblock %}
 </head>
 <body>
 	<nav class="nav">
 		<a href="#" class="logo">SocialProject</a>
 		<ul>
 			<li>
-				<a href=""></a>
+				<a href="#">Home</a>
 			</li>
 			<li>
-				<a href=""></a>
+				<a href="#">Profile</a>
 			</li>
 			<li>
-				<a href=""></a>
+				<a href="#">Publish</a>
 			</li>
 			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
+				<a href="#">Logout</a>
 			</li>
 		</ul>
 	</nav>
+	<main class="main">
+		{% block content %}
+		{% endblock %}
+	</main>
+	<footer class="footer">
+		<p>A website by <a href="#">Dhiman Chakma</a></p>
+	</footer>
+	{% block js %}
+	{% endblock %}
+	<div id="fb-root"></div>
+	<script type="text/javascript">
+	(function() {
+	    var e = document.createElement('script'); e.async = true;
+	    e.src = document.location.protocol +
+	    '//connect.facebook.net/de_DE/all.js';
+	    document.getElementById('fb-root').appendChild(e);
+	}());
+	</script>
 </body>
 </html>
