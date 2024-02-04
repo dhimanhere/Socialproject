@@ -1,37 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{% static 'css/base.css' %}">
-	{% load fb_tags %}
-	<script type="text/javascript">
-	    FACEBOOK_APP_ID = '{% fb_app_id %}';
-	    FACEBOOK_REDIRECT_URL = '{% fb_redirect_url %}';
-	    FACEBOOK_CHANNEL_URL = '{% url channel %}';
-	</script>
-	<script type="text/javascript" src="{{ STATIC_URL }}facebook/fb_utils.js"></script>
 	{% block head %}
 	{% endblock %}
 </head>
 <body>
 	<nav class="nav">
 		<a href="#" class="logo">SocialProject</a>
-		<ul>
+		<ul class="nav-list">
 			<li>
-				<a href="#">Home</a>
+				<a href="/">Home</a>
 			</li>
 			<li>
-				<a href="#">Profile</a>
+				<a href="{% url 'profile' %}">Profile</a>
 			</li>
 			<li>
-				<a href="#">Publish</a>
+				<a href="{% url 'social' %}">Publish</a>
 			</li>
 			<li>
-				<a href="#">Logout</a>
+				<a href="{% url 'logout-c' %}">Logout</a>
 			</li>
 		</ul>
+		<div class="hamburger">
+			<div class="ham"></div>
+			<div class="ham"></div>
+			<div class="ham"></div>
+		</div>
 	</nav>
 	<main class="main">
 		{% block content %}
@@ -42,14 +40,12 @@
 	</footer>
 	{% block js %}
 	{% endblock %}
-	<div id="fb-root"></div>
-	<script type="text/javascript">
-	(function() {
-	    var e = document.createElement('script'); e.async = true;
-	    e.src = document.location.protocol +
-	    '//connect.facebook.net/de_DE/all.js';
-	    document.getElementById('fb-root').appendChild(e);
-	}());
+	<script>
+		const hamburger = document.querySelector(".hamburger")
+		const navList = document.querySelector(".nav-list")
+		hamburger.addEventListener("click", ()=>{
+			navList.classList.toggle("active");
+		})
 	</script>
 </body>
 </html>

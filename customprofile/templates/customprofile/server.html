@@ -1,0 +1,28 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block head %}
+<style>
+	.error-container{
+		text-align: center;
+		font-size: 1.25rem;
+		font-weight: 500;
+		color: red;
+		margin-top: 2rem;
+		padding-inline: 1rem;
+		padding-bottom: 1rem;
+		letter-spacing: 1px;
+		text-transform: capitalize;
+	}
+</style>
+<!-- Meta tags start -->
+<title>Error 500</title>
+
+<!-- End of Meta Tags -->
+{% endblock %}
+{% block content %}
+<div class="error-container">
+	<div class="error-wrapper">
+		<h1>Server Error</h1>
+	</div>
+</div>
+{% endblock content %}

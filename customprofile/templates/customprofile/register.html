@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Register</title>
+	<link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+	<header class="logo">
+		<a href="#">SOCIALPROJECT</a>
+	</header>
+	<div class="form-container">
+		<form  class="form-body" method="post">
+			{% csrf_token %}
+			<div class="input-wrapper">
+				<label for="id_first_name">Name*</label>
+				{{form.name}}
+			</div>
+			<div class="input-wrapper">
+				<label for="id_email">Username*</label>
+				{{form.username}}
+			</div>
+			<div class="input-wrapper">
+				<label for="id_email">Email*</label>
+				{{form.email}}
+			</div>
+			<div class="input-wrapper">
+				<label for="id_password1">Facebook Page Name</label>
+				{{form.facebook_page}}
+			</div>
+			<div class="input-wrapper">
+				<label for="id_password1">Twitter Username</label>
+				{{form.twitter_username}}
+			</div>
+			<div class="input-wrapper">
+				<label for="id_password1">Password*</label>
+				{{form.password1}}
+			</div>
+			<div class="input-wrapper">
+				<label for="id_password2">Confirm Password*</label>
+				{{form.password2}}
+			</div>
+			<div class="login-cta">
+				<p>Have an account? <a href="{% url 'login-c' %}">Login</a></p>
+			</div>
+			<button type="submit">Register</button>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block head %}
+<title>Comment on Facebook</title>
+<style>
+	.form-container>h1{
+		font-family: var(--primary-family);
+		font-size: 1.5rem;
+		text-align: center;
+		text-transform: capitalize;
+		color: var(--color-black);
+		margin-bottom: 1rem;
+	}
+	.form{
+		box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+		width: 90%;
+		max-width: 20rem;
+		margin-inline: auto;
+		padding: 1rem;
+	}
+
+	.inp-cn>label{
+		display: block;
+		font-family: var(--secondary-family);
+		font-size: 0.875rem;
+		font-weight: 500;
+		margin-block: 0.2rem;
+		color: var(--color-primary);
+	}
+	.inp-cn>textarea{
+		width: 100%;
+		border: 0;
+		outline: none;
+		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		margin-bottom: 1rem;
+		border-radius: 5px;
+		font-family: var(--primary-family);
+		font-size: 0.75rem;
+		color: var(--color-primary);
+		padding: 4px;
+	}
+	.form>button{
+		padding: 3px 1rem;
+		border: 0;
+		font-family: var(--primary-family);
+		background-color: var(--color-black);
+		color: white;
+		font-size: 0.75rem;
+		cursor: pointer;
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div class="form-container">
+	<h1>Tweet on Twitter</h1>
+	<div class="form-wrapper">
+		<form action="#" class="form" method="POST">
+			{% csrf_token %}
+			<div class="inp-cn">
+				<label for="comment">Tweet</label>
+				<textarea name="comment" id="comment" cols="30" placeholder="Comment" required></textarea>
+			</div>
+			<button type="submit">Post</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

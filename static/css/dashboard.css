@@ -1,0 +1,10 @@
+.facebook-wrap h2{
+	font-family: var(--primary-family);
+	font-size: 1.5rem;
+	color: var(--color-black);
+	text-align: center;
+	border-bottom: 1px solid black;
+}
+.fb-likes, .fb-friends{
+	margin-top: 1rem;
+}

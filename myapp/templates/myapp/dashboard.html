@@ -4,11 +4,41 @@
 <title>Dashboard</title>
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 {% endblock %}
-{% block main %}
+{% block content %}
 <div class="dash-container">
-	
+	<div class="facebook-con">
+		<div class="facebook-wrap">
+			<div class="fb-post">
+				<h2>Posts in the feed of Facebook</h2>	
+				<div class="fb-post-format">
+					{% for p in allposts.data %}
+					<p><strong>Post Id:</strong> {{p.id}} | <strong>Caption:</strong> {% if p.message %}{{p.message}} {% else %} <span style="color: red">No Caption Available</span>{% endif %}| <strong>Time:</strong> {{p.created_time}}</p>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="fb-likes">
+				<h2>Posts liked on Facebook</h2>
+				<div class="format-fb-like">
+					{% for m in mylikes.data %}
+					<p><strong>Post Id:</strong> {{m.id}} | <strong>Name:</strong> {{m.name}}</p>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="fb-friends">
+				<h2>Total Friends on Facebook</h2>
+				<p style="text-align: center; font-weight: bold; font-size: 1.125rem">{{myfriends.summary.total_count}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="twitter-con">
+		<div class="fb-post">
+			<h2>Post in the feed of Twitter</h2>
+			<div class="fb-post-format">
+				{% for t in user_tweets %}
+				<p><strong>Tweet ID:</strong> {{t.id}} | <strong>Tweet:</strong> {{t.text}}</p>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 </div>
-{% endblock %}
-{% block js %}
-<script src=""></script>
 {% endblock %}

@@ -8,9 +8,12 @@ DEBUG = True
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b)07bz1n2sj&q5#9!@c(i44&=9cyhs2lz9u=gnjf@bp*u+vi@v'
 
+# SECURITY WARNING: keep the secret key used in production secret!
+if DEBUG:
+    SECRET_KEY = 'django-insecure-b)07bz1n2sj&q5#9!@c(i44&=9cyhs2lz9u=gnjf@bp*u+vi@v'
+else:
+    SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 
 ALLOWED_HOSTS = []
@@ -25,21 +28,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'account',
+    'django.contrib.sites',
     'myapp',
-    'facebook',
-    'facebook.modules.profile.page',
-    'facebook.modules.profile.user',
-    'facebook.modules.profile.event',
-    'facebook.modules.profile.application',
-    'facebook.modules.connections.post',
+    'customprofile',
+
+    #external Dependencies
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+    'storages',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    #facebook middleware
-    'facebook.middleware.FakeSessionCookieMiddleware', # for Safari 5.0.1
-    'facebook.middleware.SignedRequestMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,10 +52,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'facebook.middleware.AppRequestMiddleware', 
+
+    # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
-AUTH_USER_MODEL = 'account.MyUser'
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+AUTH_USER_MODEL = 'customprofile.MyUser'
 
 ROOT_URLCONF = 'socialproject.urls'
 
@@ -65,6 +80,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -76,14 +94,24 @@ WSGI_APPLICATION = 'socialproject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
+else:
+    DATABASES = {
+      'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['PDATA'],
+        'USER': os.environ['PUSER'],
+        'PASSWORD': os.environ['PASS'],
+        'HOST': os.environ['PHOST'],
+        'PORT': '5432',
+      }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -103,10 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'facebook.backends.authentication.AuthenticationBackend',
-)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -136,7 +161,79 @@ STATICFILES_DIRS = [
    os.path.join(BASE_DIR, 'static')
 ]
 
+if DEBUG:
+    API_KEY_T='abc'
+    API_SECRET_T='abc'
+    ACCESS_KEY='abc'
+    ACCESS_SECRET = 'abc'
+
+    GRAPH_TOKEN = 'abc'
+    API_KEY_F='abc'
+    API_SECRET_F='abc'
+else:
+    #Twitter Keys
+    API_KEY_T=os.environ["API_KEY"]
+    API_SECRET_T=os.environ["API_SECRET"]
+    ACCESS_KEY=os.environ["ACCESS_KEY"]
+    ACCESS_SECRET = os.environ["ACCESS_SECRET"]
+
+    # Facebook Keys
+    GRAPH_TOKEN = os.environ["GRAPH_TOKEN"]
+    API_KEY_F=os.environ["API_KEY_F"]
+    API_SECRET_F=os.environ["API_SECRET_F"]
+
+if DEBUG:
+    pass
+else:
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+    CLOUDFRONT_DOMAIN = os.environ['CLOUDFRONT_DOMAIN']
+    AWS_S3_CUSTOM_DOMAIN = os.environ['AWS_S3_CUSTOM_DOMAIN']
+    AWS_LOCATION = 'staticfiles'
+    STATIC_LOCATION = "static"
+    # Add your path in the STATICFILES_STORAGE
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SOCIALACCOUNT_FORMS = {'disconnect': 'socialproject.forms.MyCustomSocialDisconnectForm'}
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',  # Set to 'js_sdk' to use the Facebook connect SDK
+        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        'SCOPE': ['email', 'public_profile'],
+        'APP': {
+            'client_id': API_KEY_F,
+            'secret': API_SECRET_F,
+            'key': ''
+        },
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'first_name',
+            'last_name',
+            'friends',
+            'posts',
+            'comments',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v13.0',
+        'GRAPH_API_URL': 'https://graph.facebook.com/v13.0',
+    },
+    'twitter':{
+        'APP': {
+            'key': API_KEY_T,
+            'secret': API_SECRET_T,
+        }
+    }
+}

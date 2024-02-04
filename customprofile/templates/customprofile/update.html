@@ -1,0 +1,43 @@
+{% extends 'myapp/base.html' %}
+{% load socialaccount %}
+{% load static %}
+{% block head %}
+<title>Profile</title>
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+{% block content %}
+<div class="pl-container">
+	<h1>Profile</h1>
+	<div class="pl-wrapper">
+		<div class="app-container">
+			<div class="user-data">
+				<p><strong>Name:</strong> User Name</p>
+			</div>
+			<div class="user-data">
+				<p><strong>Email:</strong> something@gmail.com</p>
+			</div>
+			<div class="user-data">
+				<p><strong>Facebook Page:</strong> Something</p>
+			</div>
+			<div class="user-data">
+				<p><strong>Twitter Username:</strong> Somthing</p>
+			</div>
+			<div class="update-profile">
+				<a href="#" target="_blank">Update Profile</a>
+			</div>
+		</div>
+		<div class="social-container">
+			<h2>Connect Social Media Accounts</h2>
+			<div class="social-login">
+				<p>Connect to <a href='{% provider_login_url "facebook" process="connect" %}' target="_blank"><img src="{% static 'image/facebook.png' %}" alt="facebook"></a></p>
+			</div>
+			<div class="social-login">
+				<p>Connect to <a href='{% provider_login_url "twitter" process="connect" %}' target="_blank"><img src="{% static 'image/twitter.png' %}" alt="twitter"></a></p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+<script src=""></script>
+{% endblock %}

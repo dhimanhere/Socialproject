@@ -1,0 +1,75 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block head %}
+<title>Profile</title>
+<style>
+	.form-container>h1{
+		font-family: var(--primary-family);
+		font-size: 1.5rem;
+		text-align: center;
+		text-transform: capitalize;
+		color: var(--color-black);
+		margin-bottom: 1rem;
+	}
+	.form{
+		box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+		width: 90%;
+		max-width: 20rem;
+		margin-inline: auto;
+		padding: 1rem;
+	}
+
+	.inp-cn>label{
+		display: block;
+		font-family: var(--secondary-family);
+		font-size: 0.875rem;
+		font-weight: 500;
+		margin-block: 0.2rem;
+		color: var(--color-primary);
+	}
+	.inp-cn>input{
+		width: 100%;
+		border: 0;
+		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		padding: 4px;
+		border-radius: 5px;
+		outline: none;
+		font-family: var(--primary-family);
+		font-size: 0.75rem;
+		color: var(--color-primary);
+		margin-bottom: 1rem;
+	}
+	.inp-cn>input::-webkit-outer-spin-button,
+	.inp-cn>input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	.inp-cn>input[type=number] {
+		-moz-appearance: textfield;
+	}
+	.form>button{
+		padding: 3px 1rem;
+		border: 0;
+		font-family: var(--primary-family);
+		background-color: var(--color-black);
+		color: white;
+		font-size: 0.75rem;
+		cursor: pointer;
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div class="form-container">
+	<h1>Like a Facebook Post</h1>
+	<div class="form-container">
+		<form action="#" class="form" method="POST">
+			{% csrf_token %}
+			<div class="inp-cn">
+				<label for="post_id">Post ID</label>
+				<input type="number" name="post_id" id="post_id" placeholder="Post ID" required>
+			</div>
+			<button type="submit">Click to like</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+.pl-container>h1{
+  text-align: center;
+  font-family: var(--primary-family);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid black;
+}
+.app-container{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-top: 1rem;
+  display: grid;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+.user-data>p{
+  font-family: var(--secondary-family);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-black);
+}
+.update-profile>a{
+  font-family: var(--secondary-family);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-black);
+}
+.social-container>h2{
+  text-align: center;
+  margin-top: 1rem;
+  text-transform: capitalize;
+  font-family: var(--primary-family);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-black);
+  border-bottom: 1px dashed black;
+}
+.social-login{
+  margin-top: 1rem;
+}
+.social-login>p{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--secondary-family);
+  font-size: 1rem;
+  color: var(--color-black);
+}
+.social-login>p>a>img{
+  width: 100%;
+  max-width: 2rem;
+  margin-left: 1rem;
+}

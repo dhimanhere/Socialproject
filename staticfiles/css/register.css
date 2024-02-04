@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Ubuntu:wght@500;700&display=swap');
+/*font-family: 'League Spartan', sans-serif;*/
+:root{
+  --primary-color:#000000;
+  --secondary-color: rgba(0,0,0,0.8);
+  --background-color:rgba(0,0,0,1);
+  --primary-family:'Ubuntu', sans-serif;
+  --secondary-family: 'Poppins', sans-serif;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+}
+.logo{
+  text-align: center;
+  padding: 1rem;
+}
+.logo>a{
+  text-decoration: none;
+  font-size: 1.25rem;
+  color: brown;
+  text-transform: uppercase;
+  font-family: var(--primary-family);
+  font-weight: 600;
+}
+.form-container{
+  width: 90%;
+  max-width: 30rem;
+  margin-inline: auto;
+  margin-top: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;;
+  padding: 1rem;
+  border-radius: 5px;
+}
+.input-wrapper>label{
+  display: block;
+  font-family: var(--secondary-family);
+  font-size: 0.875rem;
+}
+.input-wrapper>input{
+  width: 100%;
+  border:0;
+  margin: 0.5rem 0;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  outline: none;
+  padding: 2px 5px;
+  font-family: var(--secondary-family);
+}
+.login-cta{
+  padding: 0.5rem 0;
+  font-family: var(--secondary-family);
+}
+.login-cta>p{
+  font-size: 0.75rem;
+  color: var(--color-black);
+}
+.login-cta>p>a{
+  color: var(--colorblack);
+}
+.form-body>button{
+  border: 0;
+  padding: 5px 20px;
+  background: var(--secondary-color);
+  color: white;
+  font-family: var(--primary-family);
+  font-size: 0.875rem;
+  cursor: pointer;
+}

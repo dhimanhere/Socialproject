@@ -1,0 +1,33 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block head %}
+<title>Authentication Error</title>
+<style>
+	.error-template{
+		padding: 1rem;
+		margin-top: 2rem;
+	}
+	.error>h1{
+		text-align: center;
+		text-transform: capitalize;
+		font-family: var(--primary-family);
+		font-size: 1.5rem;
+		color: red;
+	}
+	.error>p{
+		margin-top: 0.5rem;
+		text-align: center;
+		font-family: var(--secondary-family);
+		font-size: 1rem;
+		color: var(--color-primary);
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div class="error-template">
+	<div class="error">
+		<h1>Authentication Error...</h1>
+		<p>Seems like there is an error in the input keys.</p>
+	</div>
+</div>
+{% endblock %}

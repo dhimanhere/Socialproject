@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+	<link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+	<header class="logo">
+		<a href="#">SOCIALPROJECT</a>
+	</header>
+	<div class="form-container">
+		<form  class="form-body" method="post">
+			{% csrf_token %}
+			<div class="input-wrapper">
+				<label for="email">Email*</label>
+				<input type="email" name="email" id="email" required>
+			</div>
+			<div class="input-wrapper">
+				<label for="password">Password*</label>
+				<input type="password" name="password" id="password" required>
+			</div>
+			<div class="login-cta">
+				<p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+			</div>
+			<button type="submit">Login</button>
+		</form>
+	</div>
+</body>
+</html>
